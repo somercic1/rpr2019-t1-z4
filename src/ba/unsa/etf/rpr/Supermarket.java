@@ -3,27 +3,37 @@ package ba.unsa.etf.rpr;
 
 
 public class Supermarket {
-    Artikl[] artikli = new Artikl[1000];
+    private Artikl[] artikli = new Artikl[1000];
+    private int brojUbacenih = 0;
+
+
+    public int getBrojUbacenih() {
+        return brojUbacenih;
+    }
+
+    public void setBrojUbacenih(int brojUbacenih) {
+        this.brojUbacenih = brojUbacenih;
+    }
 
     public Artikl[] getArtikli() {
-        return this.artikli;
+
+        return artikli;
     }
 
     public Artikl izbaciArtiklSaKodom(String kod) {
-        Artikl prazan=null;
-        for (int i = 0; i < this.artikli.length; i++) {
-            if (this.artikli[i].kod.equals(kod))
-                return this.artikli[i];
+        Artikl prazan = null;
+        for (int i = 0; i < getBrojUbacenih(); i++) {
+            if (artikli[i].getKod().equals(kod))
+                return artikli[i];
         }
         return prazan;
     }
 
     public boolean dodajArtikl(Artikl biciklo) {
-        for(int i=0;i<artikli.length; i++){
-            if(artikli[i]==null) {
-                artikli[i] = biciklo;
-                return true;
-            }
+        if (brojUbacenih < artikli.length) {
+            artikli[brojUbacenih] = biciklo;
+            setBrojUbacenih(brojUbacenih + 1);
+            return true;
         }
         return false;
     }

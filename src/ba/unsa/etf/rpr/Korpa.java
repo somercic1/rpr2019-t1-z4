@@ -3,38 +3,49 @@ package ba.unsa.etf.rpr;
 
 
 public class Korpa  {
-    Artikl[] korpa = new Artikl[50];
+    private Artikl[] korpa = new Artikl[50];
+    private int ubacenih=0;
 
+    public int getUbacenih() {
+        return ubacenih;
+    }
 
+    public void setUbacenih(int ubacenih) {
+        this.ubacenih = ubacenih;
+    }
 
     public Artikl[] getArtikli() {
-        return this.korpa;
+        return korpa;
     }
+
+
 
     public Artikl izbaciArtiklSaKodom(String kod) {
-        Artikl izbaceni=null;
-        for (int i = 0; i < this.korpa.length; i++) {
-            if (this.korpa[i].kod.equals(kod))
-                return this.korpa[i];
+        Artikl nePostoji=null;
+        for (int i = 0; i < getUbacenih(); i++) {
+            if (korpa[i].getKod().equals(kod))
+                return korpa[i];
+
         }
-        return izbaceni;
+
+
+    return nePostoji;
     }
 
+
     public boolean dodajArtikl(Artikl biciklo) {
-        for(int i=0; i < this.korpa.length; i++){
-            if(this.korpa[i]==null) {
-                this.korpa[i] = biciklo;
-                return true;
+        if(getUbacenih() < korpa.length){
+            korpa[getUbacenih()]=biciklo;
+            setUbacenih(getUbacenih()+1);
+            return true;
             }
-        }
         return false;
     }
 
     public int dajUkupnuCijenuArtikala() {
         int ukCijena=0;
-        for(int i=0; i < this.korpa.length; i++){
-            if(this.korpa[i]!=null)
-                ukCijena=ukCijena+korpa[i].cijena;
+        for(int i=0; i < getUbacenih(); i++){
+                ukCijena=ukCijena+korpa[i].getCijena();
         }
 
         return ukCijena;
