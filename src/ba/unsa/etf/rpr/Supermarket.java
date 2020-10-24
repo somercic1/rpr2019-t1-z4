@@ -1,9 +1,11 @@
 package ba.unsa.etf.rpr;
 
 
+import java.util.Arrays;
 
 public class Supermarket {
     private Artikl[] artikli = new Artikl[1000];
+    private Artikl[] pomocniArtikli= new Artikl[1000];
     private int brojUbacenih = 0;
 
 
@@ -21,12 +23,21 @@ public class Supermarket {
     }
 
     public Artikl izbaciArtiklSaKodom(String kod) {
-        Artikl prazan = null;
+        int j=0;
+        Artikl izbaceni=null;
         for (int i = 0; i < getBrojUbacenih(); i++) {
-            if (artikli[i].getKod().equals(kod))
-                return artikli[i];
+            if (artikli[i].getKod().equals(kod)) {
+                izbaceni = artikli[i];
+                continue;
+            }
+            pomocniArtikli[j++]=artikli[i];
+
+
         }
-        return prazan;
+        artikli= Arrays.copyOf(pomocniArtikli, pomocniArtikli.length);
+        setBrojUbacenih(getBrojUbacenih()-1);
+
+        return izbaceni;
     }
 
     public boolean dodajArtikl(Artikl biciklo) {

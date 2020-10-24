@@ -1,9 +1,12 @@
 package ba.unsa.etf.rpr;
 
 
+import java.util.Arrays;
 
 public class Korpa  {
     private Artikl[] korpa = new Artikl[50];
+    private Artikl[] novaKorpa= new Artikl[50];
+
     private int ubacenih=0;
 
     public int getUbacenih() {
@@ -21,15 +24,21 @@ public class Korpa  {
 
 
     public Artikl izbaciArtiklSaKodom(String kod) {
-        Artikl nePostoji=null;
+        int j=0;
+        Artikl izbaceni=null;
         for (int i = 0; i < getUbacenih(); i++) {
-            if (korpa[i].getKod().equals(kod))
-                return korpa[i];
+            if (korpa[i].getKod().equals(kod)) {
+                izbaceni = korpa[i];
+                continue;
+            }
+            novaKorpa[j++]=korpa[i];
+
 
         }
+        korpa= Arrays.copyOf(novaKorpa, novaKorpa.length);
+        setUbacenih(getUbacenih()-1);
 
-
-    return nePostoji;
+    return izbaceni;
     }
 
 
